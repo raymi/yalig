@@ -1,0 +1,103 @@
+<html>
+<head><title>Yet Another Lorem Ipsum Generator Options</title></head>
+<style>
+	* {
+		font-family: Arial;
+		font-size: 10pt;
+		color: #222222;
+	}
+	.row {
+		clear: both;
+		width: 500px;
+		margin: 5px;
+		overflow-y: auto;
+	}
+	.info {
+		color: #666666;
+	}
+	.row label {
+		width: 250px;
+		
+	}
+	.row label, .row input {
+		float: left;
+		margin: 0px;
+	}
+	
+	.footer {
+		color: #666666;
+		font-style: italic;
+	}
+	
+	button {
+		background-color: #B4CCED;
+	}
+	
+	
+</style>
+<script type="text/javascript">
+
+function saveOptions() {
+	chrome.extension.getBackgroundPage().settings.setMail(document.getElementById("mail").value);
+	chrome.extension.getBackgroundPage().settings.setURL(document.getElementById("url").value);
+	chrome.extension.getBackgroundPage().settings.setContextMenu(document.getElementById("contextMenu").checked);
+	chrome.extension.getBackgroundPage().settings.setInsertIntoPage(document.getElementById("insertIntoPage").checked);
+	chrome.extension.getBackgroundPage().settings.isCopyToClipboard(document.getElementById("copyToClipboard").checked);
+	var status = document.getElementById("status");
+	status.innerHTML = "Options Saved.";
+	setTimeout(function() {
+		status.innerHTML = "&nbsp;";
+	}, 1500);
+}
+
+// Restores select box state to saved value from localStorage.
+function restoreOptions() {
+	document.getElementById("mail").value = chrome.extension.getBackgroundPage().settings.getMail();
+	document.getElementById("url").value = chrome.extension.getBackgroundPage().settings.getURL();
+	document.getElementById("contextMenu").checked = chrome.extension.getBackgroundPage().settings.isContextMenu();
+	document.getElementById("insertIntoPage").checked = chrome.extension.getBackgroundPage().settings.isInsertIntoPage();
+	document.getElementById("copyToClipboard").checked = chrome.extension.getBackgroundPage().settings.isCopyToClipboard();
+ }
+
+</script>
+
+<body onload="restoreOptions()">
+<h1>YALIG - Yet Another Lorem Ipsum Generator - Options</h1>
+<div class="row">
+	<label for="mail">Test Mail Address</label><input type="text" id="mail" />
+</div>
+<div class="row">
+	<label for="url">Test URL</label><input type="text" id="url" />
+</div>
+<div class="row">
+	<label for="contextMenu">Include YALIG in Context Menu</label><input type="checkbox" id="contextMenu" />
+</div>
+<div class="row info">
+	&nbsp;
+</div>
+<div class="row info">
+	The following options can also be changed directly while using the extension.
+</div>
+<div class="row">
+	<label for="insertIntoPage">Insert Text Directly into Page</label><input type="checkbox" id="insertIntoPage" />
+</div>
+<div class="row">
+	<label for="copyToClipboard">Copy the Text To Clipboard</label><input type="checkbox" id="copyToClipboard" />
+</div>
+<div class="row">&nbsp;</div>
+<div class="row">
+	<div id="status">&nbsp;</div>
+</div>
+<div class="row">
+	<button onclick="saveOptions()">
+			Save
+	</button>
+</div>
+<div class="row">
+	&nbsp;
+</div>
+<div class="footer">
+	Do you miss a feature? Did you find a bug? Your feedback is very appreciated. Please contact Raymi's Lab: lab@raymi.ch
+</div>
+</body>
+</html>

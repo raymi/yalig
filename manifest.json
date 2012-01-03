@@ -1,11 +1,13 @@
 {
-	"name": "Yet Another Lipsum Generator",
+	"name": "Yet Another Lorem Ipsum Generator",
 	"version": "1.0",
 	"description": "Comfort Lorem Ipsum Generator.",
 	"browser_action": {
 		"default_icon": "icon.png",
 		"default_popup": "popup.html"
 	},
+	"options_page" : "options.html",
+	"background_page": "background.html",
 	"content_scripts" : [
 		{
 			"matches" : ["<all_urls>"],
@@ -13,6 +15,7 @@
 		}
 	],
 	"permissions" : [
-		"tabs"
+		"tabs",
+		"contextMenus"
 	]
 }

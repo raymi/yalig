@@ -1,5 +1,7 @@
 function insertText(text) {
 	var element = document.activeElement;
+	if (!element) return false;
+	if (typeof(element.value) == "undefined") return false;
 	//check if textarea or input
 	var pos = element.selectionStart;
 	if (!pos) pos = 0;
@@ -10,12 +12,14 @@ function insertText(text) {
 	element.selectionStart = pos;
 	element.selectionEnd = pos;
 	element.focus();
+	return true;
 }
 
 chrome.extension.onRequest.addListener(
   function(request, sender, sendResponse) {
-	insertText(request.text);
-	sendResponse({});
-    //alert(document.activeElement + " " + request.numberOfParagraphs + " " + request.paragraphLength);
+	var success = insertText(request.text);
+	var response = {};
+	response.error = !success;
+	sendResponse(response);
   }
 );

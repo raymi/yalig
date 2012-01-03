@@ -1,4 +1,18 @@
 <style>
+	* {
+		font-family: Arial;
+		font-size: 8pt;
+	}
+	
+	h3 {
+		margin: 0;
+		color: #8DA0BA;
+	}
+	
+	#error {
+		color: red;
+		font-weight: bold;
+	}
 
 	.grid {
 		overflow: auto;
@@ -6,7 +20,6 @@
 	
 	.row {
 		width: 238px;
-		font-size: 8pt;
 		clear: both;
 		overflow: auto;
 		margin-bottom: 8px;
@@ -22,14 +35,30 @@
 		cursor: pointer;
 	}
 	
+	.option {
+		width: 115px;
+		margin-left: 2px;
+		float: left;
+	}
+	
+	.option.last {
+		margin-right: 0px;
+	}
+	
+	.option input[type="checkbox"] {
+		vertical-align: bottom;
+		width: 15px;
+		height: 15px;
+	}
+	
 	.date {
 		width: 56px;
 		float: left;
 		margin-right: 2px;
 	}
 	
-	.date, .email, .parcol {
-		height: 20px;
+	.date, .email, .parcol, .url, .option {
+		line-height: 20px;
 		text-align: center;
 	}
 	
@@ -37,8 +66,9 @@
 		margin-right: 0px;
 	}
 	
-	.email {
+	.email, .url {
 		width: 236px;
+		margin-bottom: 2px
 	}
 	
 	.paragraph {
@@ -61,6 +91,7 @@
 		float: left;
 		border: 1px solid #8DA0BA;
 		cursor: pointer;
+		height: 20px;
 	}
 	
 	.parcol.first {
@@ -101,9 +132,14 @@
 		}
 	}
 	
-	function clickSelected(event, element) {
+	function clickSelectedParagraphs(event, element) {
 		var coords = getCoor(event, element);
-		insertParagraphs(coords[1], coords[0]);
+		chrome.extension.getBackgroundPage().insertParagraphs(coords[1], coords[0], handleResponse);
+	}
+	
+	function clickSelectedTitle(event, element) {
+		var coords = getCoor(event, element);
+		chrome.extension.getBackgroundPage().insertTitle(coords[0], handleResponse);
 	}
 	
 	function getCoor(event, element) {
@@ -114,21 +150,72 @@
 		return [w, h];
 	}
 	
-	function insertParagraphs(numberOfParagraphs, paragraphLength) {
-		
-		chrome.tabs.getSelected(null, function(tab) {
-			chrome.tabs.sendRequest(tab.id, { text: "Lorem ipsum"}, function(response) {
-				alert("responded");
-				window.close();
-		  });
-		});
+	function insertText(text) {
+		chrome.extension.getBackgroundPage().insertText(text, handleResponse);
 	}
 	
-</script>
+	function handleResponse(response) {
+		if (!response.error) {
+			window.close();
+		} else {
+			document.getElementById("error").innerHTML = "can't insert at the current position";
+			window.setTimeout(function() { window.close(); }, 2000);
+		}
+	}
 
+	var todayString = chrome.extension.getBackgroundPage().createTodayString();
+	var yesterdayString = chrome.extension.getBackgroundPage().createYesterdayString();
+	var tomorrowString = chrome.extension.getBackgroundPage().createTomorrowString();
+	var randomDateString = chrome.extension.getBackgroundPage().createRandomDateString();
+	var url = chrome.extension.getBackgroundPage().createURL();
+	var mail = chrome.extension.getBackgroundPage().createMail();
+	
+	
+	
+	function toggleOptionInsertIntoPage() {
+		var val = chrome.extension.getBackgroundPage().settings.isInsertIntoPage();
+		chrome.extension.getBackgroundPage().settings.setInsertIntoPage(!val);
+		updateOptionInsertIntoPage();
+	}
+	
+	function toggleOptionCopyToClipboard() {
+		chrome.extension.getBackgroundPage().settings.setCopyToClipboard(!chrome.extension.getBackgroundPage().settings.isCopyToClipboard());
+		updateOptionCopyToClipboard();
+	}
+	
+	function updateOptionInsertIntoPage() {
+		document.getElementById("optionInsertIntoPage").checked = chrome.extension.getBackgroundPage().settings.isInsertIntoPage();
+	}
+	
+	function updateOptionCopyToClipboard() {
+		document.getElementById("optionCopyToClipboard").checked = chrome.extension.getBackgroundPage().settings.isCopyToClipboard();
+	}
+	
+	
+	
+</script>
+<div id="error"></div>
 <div class="grid">
 	<div class="row">
-		<div class="paragraph" onmousemove="updateSelected(event, this)" onmouseout="clearSelected(this)" onclick="clickSelected(event, this)">
+		<h3>Title</h3>
+		<div class="paragraph" onmousemove="updateSelected(event, this)" onmouseout="clearSelected(this)" onclick="clickSelectedTitle(event, this)">
+			<div class="parrow">
+				<div class="parcol first">
+				</div>
+				<div class="parcol">
+				</div>
+				<div class="parcol">
+				</div>
+				<div class="parcol">
+				</div>
+				<div class="parcol last">
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<h3>Paragraphs</h3>
+		<div class="paragraph" onmousemove="updateSelected(event, this)" onmouseout="clearSelected(this)" onclick="clickSelectedParagraphs(event, this)">
 			<div class="parrow">
 				<div class="parcol first">
 				</div>
@@ -194,24 +281,59 @@
 
 	</div>
 	<div class="row">
-		<div class="entry date">
-			19.11.2010
+		<h3>Dates</h3>
+		<div class="entry date" onclick="insertText(yesterdayString)">
+			<script>
+				document.write(yesterdayString);
+			</script>
 		</div>
-		<div class="entry date">
-			20.11.2010
+		<div class="entry date" onclick="insertText(todayString)">
+			<script>
+				document.write(todayString);
+			</script>
 		</div>
-		<div class="entry date">
-			21.11.2010
+		<div class="entry date" onclick="insertText(tomorrowString)">
+			<script>
+				document.write(tomorrowString);
+			</script>
 		</div>
-		<div class="entry date last">
+		<div class="entry date last" onclick="insertText(randomDateString)">
 			??.??.????
 		</div>
 	</div>
 	<div class="row">
-		<div class="entry email">
-			dominik.raymann@gmail.com
+		<h3>Internet</h3>
+		<div class="entry email" onclick="insertText(mail)">
+			<script>
+				document.write(mail);
+			</script>
+		</div>
+		<div class="entry url" onclick="insertText(url)">
+			<script>
+				document.write(url);
+			</script>
+		</div>
+	</div>
+	<div class="row">
+		<h3>Options</h3>
+		<div class="option">
+			<span>
+				<input type="checkbox" id="optionInsertIntoPage" onclick="toggleOptionInsertIntoPage()"/>
+				<label for="optionInsertIntoPage">Insert into Page</label>
+			</span>
+		</div>
+		<div class="option">
+			<span>
+				<input type="checkbox" id="optionCopyToClipboard" onclick="toggleOptionCopyToClipboard()"/>
+				<label for="optionCopyToClipboard">Copy to Clipboard</label>
+			</span>
 		</div>
 	</div>
 	
 </div>
+<script>
+	updateOptionInsertIntoPage();
+	updateOptionCopyToClipboard();
+	
+</script>
 
