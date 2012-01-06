@@ -1,0 +1,105 @@
+* {
+	font-family: Arial;
+	font-size: 8pt;
+}
+
+h3 {
+	margin: 0;
+	color: #8DA0BA;
+}
+
+#error {
+	color: red;
+	font-weight: bold;
+}
+
+.grid {
+	overflow: auto;
+}
+
+.row {
+	width: 238px;
+	clear: both;
+	overflow: auto;
+	margin-bottom: 8px;
+}
+
+.entry {
+	-webkit-border-radius: 4px;
+	border: 1px solid #8DA0BA;
+}
+
+.entry:hover, .parcol.selected {
+	background-color: #B4CCED;
+	cursor: pointer;
+}
+
+.option {
+	width: 115px;
+	margin-left: 2px;
+	float: left;
+}
+
+.option.last {
+	margin-right: 0px;
+}
+
+.option input[type="checkbox"] {
+	vertical-align: bottom;
+	width: 15px;
+	height: 15px;
+}
+
+.date {
+	width: 56px;
+	float: left;
+	margin-right: 2px;
+}
+
+.date, .email, .parcol, .url, .option {
+	line-height: 20px;
+	text-align: center;
+}
+
+.last {
+	margin-right: 0px;
+}
+
+.email, .url {
+	width: 236px;
+	margin-bottom: 2px
+}
+
+.paragraph {
+	overflow: auto;
+}
+
+.parrow {
+	clear: both;
+	margin-bottom: 2px;
+	overflow: auto;
+}
+
+.parrow.last {
+	margin-bottom: 0px;
+}
+
+.parcol {
+	width: 44px;	
+	margin-right: 2px;
+	float: left;
+	border: 1px solid #8DA0BA;
+	cursor: pointer;
+	height: 20px;
+}
+
+.parcol.first {
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+}
+
+.parcol.last {
+	-webkit-border-top-right-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	margin-right: 0px;
+}
