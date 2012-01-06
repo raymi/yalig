@@ -127,7 +127,7 @@ function formatDate(date) {
 
 var settings = {
 	isInsertIntoPage : function() {
-		if (typeof(localStorage["insertIntoPage"]) == 'undefined') setInsertIntoPage(true);
+		if (typeof(localStorage["insertIntoPage"]) == 'undefined') settings.setInsertIntoPage(true);
 		return JSON.parse(localStorage["insertIntoPage"]);
 	},
 	
@@ -137,7 +137,7 @@ var settings = {
 	},
 
 	isCopyToClipboard : function() {
-		if (typeof(localStorage["copyToClipboard"]) == 'undefined') setCopyToClipboard(true);
+		if (typeof(localStorage["copyToClipboard"]) == 'undefined') settings.setCopyToClipboard(true);
 		return JSON.parse(localStorage["copyToClipboard"]);
 	},
 	
@@ -147,7 +147,7 @@ var settings = {
 	},
 	
 	isContextMenu: function() {
-		if (typeof(localStorage["contextMenu"]) == 'undefined') localStorage["contextMenu"] = JSON.stringify(true);
+		if (typeof(localStorage["contextMenu"]) == 'undefined') settings.setContextMenu(true);
 		return JSON.parse(localStorage["contextMenu"]);
 	},
 	
