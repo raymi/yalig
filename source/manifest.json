@@ -1,7 +1,7 @@
 {
 	"name": "Yet Another Lorem Ipsum Generator",
-	"version": "1.3.1",
-	"description": "Comfort Lorem Ipsum Generator that allows insertion of blind text directly into the page as well as copying it to the clipboard.",
+	"version": "1.3.2",
+	"description": "Versatile Lorem Ipsum Generator that inserts various types of blind text directly into websites or copies it to the clipboard.",
 	"icons": {
 			"16": "icon16.png",
 			"48": "icon48.png",
