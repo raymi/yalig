@@ -45,13 +45,9 @@ function insertText(text) {
 }
 
 function handleResponse(response) {
-	if (!response.error) {
-		window.close();
-	} else {
-		document.getElementById("error").innerHTML = "can't insert at the current position";
-		window.setTimeout(function() { window.close(); }, 2000);
-	}
+	window.close();
 }
+
 
 var todayString = chrome.extension.getBackgroundPage().createTodayString();
 var yesterdayString = chrome.extension.getBackgroundPage().createYesterdayString();
