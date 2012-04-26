@@ -1,5 +1,5 @@
-Chrome Extension to Insert Lorem Ipsum
-======================================
+Chrome Extension to Generate Blind Texts
+========================================
 Description
 -----------
 Versatile Lorem Ipsum Generator that inserts various types of blind text directly into websites or copies it to the clipboard.
