@@ -1,4 +1,5 @@
-function updateSelected(event, element) {
+function updateSelected(event) {
+	var element = this;
 	var coords = getCoor(event, element);
 	var w = coords[0];
 	var h = coords[1];
@@ -15,19 +16,22 @@ function updateSelected(event, element) {
 	}	
 }
 
-function clearSelected(entry) {
+function clearSelected(event) {
+	var entry = this;
 	var entries = entry.querySelectorAll(".parcol");
 	for (var i = 0; i < entries.length; i++) {
 		entries[i].style.backgroundColor = "";
 	}
 }
 
-function clickSelectedParagraphs(event, element) {
+function clickSelectedParagraphs(event) {
+	var element = this;
 	var coords = getCoor(event, element);
 	chrome.extension.getBackgroundPage().insertParagraphs(coords[1], coords[0], handleResponse);
 }
 
-function clickSelectedTitle(event, element) {
+function clickSelectedTitle(event) {
+	var element = this;
 	var coords = getCoor(event, element);
 	chrome.extension.getBackgroundPage().insertTitle(coords[0], handleResponse);
 }
@@ -78,4 +82,35 @@ function updateOptionCopyToClipboard() {
 	document.getElementById("optionCopyToClipboard").checked = chrome.extension.getBackgroundPage().settings.isCopyToClipboard();
 }
 
+function makeTextInsertButton(id, text) {
+	var el = document.querySelector("#" + id);
+	el.innerHTML = text;
+	el.addEventListener("click", function() { insertText(text); });
+}
 
+document.addEventListener('DOMContentLoaded', function () {
+	var title = document.querySelectorAll(".title");
+	for (var i=0; i < title.length; i++) {
+		title[i].addEventListener("mousemove", updateSelected);
+		title[i].addEventListener("mouseout", clearSelected);
+		title[i].addEventListener("click", clickSelectedTitle);
+	}
+	var paragraph = document.querySelectorAll(".paragraph");
+	for (var i=0; i < paragraph.length; i++) {
+		paragraph[i].addEventListener("mousemove", updateSelected);
+		paragraph[i].addEventListener("mouseout", clearSelected);
+		paragraph[i].addEventListener("click", clickSelectedParagraphs);
+	}
+	makeTextInsertButton("yesterday", yesterdayString);
+	makeTextInsertButton("today", todayString);
+	makeTextInsertButton("tomorrow", tomorrowString);
+	makeTextInsertButton("randomDate", randomDateString);
+	makeTextInsertButton("mail", mail);
+	makeTextInsertButton("url", url);
+	
+	document.querySelector("#optionInsertIntoPage").addEventListener("click", toggleOptionInsertIntoPage);
+	document.querySelector("#optionCopyToClipboard").addEventListener("click", toggleOptionCopyToClipboard);
+	
+	updateOptionInsertIntoPage();
+	updateOptionCopyToClipboard();
+});

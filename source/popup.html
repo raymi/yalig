@@ -4,7 +4,7 @@
 <div class="grid">
 	<div class="row">
 		<h3>Title</h3>
-		<div class="paragraph" onmousemove="updateSelected(event, this)" onmouseout="clearSelected(this)" onclick="clickSelectedTitle(event, this)">
+		<div class="title">
 			<div class="parrow">
 				<div class="parcol first">
 				</div>
@@ -21,7 +21,7 @@
 	</div>
 	<div class="row">
 		<h3>Paragraphs</h3>
-		<div class="paragraph" onmousemove="updateSelected(event, this)" onmouseout="clearSelected(this)" onclick="clickSelectedParagraphs(event, this)">
+		<div class="paragraph">
 			<div class="parrow">
 				<div class="parcol first">
 				</div>
@@ -88,60 +88,30 @@
 	</div>
 	<div class="row">
 		<h3>Dates</h3>
-		<div class="entry date" onclick="insertText(yesterdayString)">
-			<script>
-				document.write(yesterdayString);
-			</script>
-		</div>
-		<div class="entry date" onclick="insertText(todayString)">
-			<script>
-				document.write(todayString);
-			</script>
-		</div>
-		<div class="entry date" onclick="insertText(tomorrowString)">
-			<script>
-				document.write(tomorrowString);
-			</script>
-		</div>
-		<div class="entry date last" onclick="insertText(randomDateString)">
-			<script>
-				document.write(randomDatePattern);
-			</script>
-		</div>
+		<div class="entry date" id="yesterday"></div>	
+		<div class="entry date" id="today"></div>
+		<div class="entry date" id="tomorrow"></div>
+		<div class="entry date last" id="randomDate"></div>
 	</div>
 	<div class="row">
 		<h3>Internet</h3>
-		<div class="entry email" onclick="insertText(mail)">
-			<script>
-				document.write(mail);
-			</script>
-		</div>
-		<div class="entry url" onclick="insertText(url)">
-			<script>
-				document.write(url);
-			</script>
-		</div>
+		<div class="entry email" id="mail"></div>
+		<div class="entry url" id="url"></div>
 	</div>
 	<div class="row">
 		<h3>Options</h3>
 		<div class="option">
 			<span>
-				<input type="checkbox" id="optionInsertIntoPage" onclick="toggleOptionInsertIntoPage()"/>
+				<input type="checkbox" id="optionInsertIntoPage" />
 				<label for="optionInsertIntoPage">Insert into Page</label>
 			</span>
 		</div>
 		<div class="option">
 			<span>
-				<input type="checkbox" id="optionCopyToClipboard" onclick="toggleOptionCopyToClipboard()"/>
+				<input type="checkbox" id="optionCopyToClipboard" />
 				<label for="optionCopyToClipboard">Copy to Clipboard</label>
 			</span>
 		</div>
 	</div>
 	
 </div>
-<script>
-	updateOptionInsertIntoPage();
-	updateOptionCopyToClipboard();
-	
-</script>
-

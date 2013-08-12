@@ -92,12 +92,12 @@ function insertText(text, callback) {
 	}
 	if (settings.isInsertIntoPage()) {
 		chrome.tabs.getSelected(null, function(tab) {		
-			chrome.tabs.sendRequest(tab.id, { text: text}, function(response) {
-				callback(response);
+			chrome.tabs.sendMessage(tab.id, { type: "insertText", text: text}, function(response) {
+				if (callback) callback(response);
 		  });
 		});
 	} else {
-		callback({});
+		if (callback) callback({});
 	}
 }
 
@@ -153,7 +153,7 @@ var settings = {
 	
 	reloadContextMenu: function() {
 		chrome.contextMenus.removeAll();
-		if (settings.isContextMenu) {
+		if (settings.isContextMenu()) {
 			createContextMenu();
 		}
 	},

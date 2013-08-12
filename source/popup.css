@@ -70,7 +70,7 @@ h3 {
 	margin-bottom: 2px
 }
 
-.paragraph {
+.paragraph, .title {
 	overflow: auto;
 }
 

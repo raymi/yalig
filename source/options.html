@@ -1,84 +1,9 @@
 <html>
 <head><title>Yet Another Lorem Ipsum Generator Options</title></head>
-<style>
-	* {
-		font-family: Arial;
-		font-size: 10pt;
-		color: #222222;
-	}
-	
-	a {
-		font-size: 8pt;
-		text-decoration: none;
-		color: blue;
-	}
-	.row {
-		clear: both;
-		width: 500px;
-		margin: 5px;
-		overflow-y: auto;
-	}
-	.row .description {
-		clear: both;
-		margin-left: 250px;
-		font-size: 8pt;
-	}
-	
-	.info {
-		color: #666666;
-	}
-	.row label {
-		width: 250px;
-		
-	}
-	.row label, .row input {
-		float: left;
-		margin: 0px;
-	}
-	
-	.footer {
-		color: #666666;
-		font-style: italic;
-	}
-	
-	button {
-		background-color: #B4CCED;
-	}
-	
-	
-</style>
-<script type="text/javascript">
+<link rel="stylesheet" type="text/css" href="options.css"></link>
+<script type="text/javascript" src="options.js"></script>
 
-function saveOptions() {
-	chrome.extension.getBackgroundPage().settings.setMail(document.getElementById("mail").value);
-	chrome.extension.getBackgroundPage().settings.setURL(document.getElementById("url").value);
-	chrome.extension.getBackgroundPage().settings.setContextMenu(document.getElementById("contextMenu").checked);
-	chrome.extension.getBackgroundPage().settings.setInsertIntoPage(document.getElementById("insertIntoPage").checked);
-	chrome.extension.getBackgroundPage().settings.isCopyToClipboard(document.getElementById("copyToClipboard").checked);
-	chrome.extension.getBackgroundPage().settings.setDateFormat(document.getElementById("dateFormat").value);
-	var status = document.getElementById("status");
-	status.innerHTML = "Options Saved.";
-	setTimeout(function() {
-		status.innerHTML = "&nbsp;";
-	}, 1500);
-}
-
-// Restores select box state to saved value from localStorage.
-function restoreOptions() {
-	document.getElementById("mail").value = chrome.extension.getBackgroundPage().settings.getMail();
-	document.getElementById("url").value = chrome.extension.getBackgroundPage().settings.getURL();
-	document.getElementById("contextMenu").checked = chrome.extension.getBackgroundPage().settings.isContextMenu();
-	document.getElementById("insertIntoPage").checked = chrome.extension.getBackgroundPage().settings.isInsertIntoPage();
-	document.getElementById("copyToClipboard").checked = chrome.extension.getBackgroundPage().settings.isCopyToClipboard();
-	document.getElementById("dateFormat").value = chrome.extension.getBackgroundPage().settings.getDateFormat();
- }
- function setDateFormat(format) {
-	document.getElementById("dateFormat").value = format;
- }
-
-</script>
-
-<body onload="restoreOptions()">
+<body>
 <h1>YALIG - Yet Another Lorem Ipsum Generator - Options</h1>
 <div class="row">
 	<label for="mail">Test Mail Address</label><input type="text" id="mail" />
@@ -94,9 +19,9 @@ function restoreOptions() {
 	<input type="text" id="dateFormat">
 	
 	<p class="description">
-		<a href="#" onclick="setDateFormat('MM/dd/yyyy'); return false;">MM/dd/yyyy</a>
+		<a href="#" id="dateFormatUs">MM/dd/yyyy</a>
 		&nbsp;
-		<a href="#" onclick="setDateFormat('dd.MM.yyyy'); return false;">dd.MM.yyyy</a>
+		<a href="#" id="dateFormatEu">dd.MM.yyyy</a>
 		<br />
 		dd - day of month<br />
 		MM - month<br />
@@ -121,7 +46,7 @@ function restoreOptions() {
 	<div id="status">&nbsp;</div>
 </div>
 <div class="row">
-	<button onclick="saveOptions()">
+	<button id="saveButton">
 			Save
 	</button>
 </div>
@@ -129,7 +54,8 @@ function restoreOptions() {
 	&nbsp;
 </div>
 <div class="footer">
-	Do you miss a feature? Did you find a bug? Your feedback is very appreciated. Please contact Raymi's Lab: lab@raymi.ch
+	Do you miss a feature? Did you find a bug? Your feedback is very appreciated. You can also contribute directly to this extension. Visit us on Github: 
+	<a href="https://github.com/raymi/yalig" target="_blank">https://github.com/raymi/yalig</a>
 </div>
 </body>
 </html>

@@ -1,8 +1,15 @@
 function insertText(text) {
 	var element = document.activeElement;
 	if (!element) return false;
-	if (typeof(element.value) == "undefined") return false;
-	//check if textarea or input
+	if (typeof(element.value) != "undefined") return insertIntoValueElement(element, text);
+}
+
+function getType() {
+	var element = document.activeElement;
+	if (element && typeof(element.value) != "undefined") return element.getAttribute("type");
+}
+
+function insertIntoValueElement(element, text) {
 	var start = element.selectionStart;
 	var end = element.selectionEnd;
 	if (!start) start = 0;
@@ -17,11 +24,17 @@ function insertText(text) {
 	return true;
 }
 
-chrome.extension.onRequest.addListener(
+chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-	var success = insertText(request.text);
-	var response = {};
-	response.error = !success;
-	sendResponse(response);
+	if (request.type == 'insertText') {
+		var success = insertText(request.text);
+		var response = {};
+		response.error = !success;
+		sendResponse(response);
+	} else if (request.type == 'inputType') {
+		var response = {};
+		response.inputType = getType();
+		sendResponse(response);
+	}
   }
 );

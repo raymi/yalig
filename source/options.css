@@ -1,0 +1,46 @@
+* {
+	font-family: Arial;
+	font-size: 10pt;
+	color: #222222;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+}
+
+.row a {
+	font-size: 8pt;
+}
+.row {
+	clear: both;
+	width: 500px;
+	margin: 5px;
+	overflow-y: auto;
+}
+.row .description {
+	clear: both;
+	margin-left: 250px;
+	font-size: 8pt;
+}
+
+.info {
+	color: #666666;
+}
+.row label {
+	width: 250px;
+	
+}
+.row label, .row input {
+	float: left;
+	margin: 0px;
+}
+
+.footer {
+	color: #666666;
+	font-style: italic;
+}
+
+button {
+	background-color: #B4CCED;
+}
