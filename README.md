@@ -1,5 +1,6 @@
-Chrome Extension to Generate Blind Texts
-========================================
+*This project is no longer maintained*
+======================================
+
 Description
 -----------
 Versatile Lorem Ipsum Generator that inserts various types of blind text directly into websites or copies it to the clipboard.
