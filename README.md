@@ -23,12 +23,6 @@ This extension is extremely lightweight. Neither does it include any external li
 
 Feel free to give feedback about missing features and bugs. See the extension's options view for contact details.
 
-Installation from Chrome Webstore
----------------------------------
-The extension can be found at https://chrome.google.com/webstore/detail/jffcmkkfbampimhpimhofhhkanhflfce
-
-You can also clone this repository and load this extension directly into your chrome installation. Please refer to http://code.google.com/chrome/extensions/getstarted.html for details.
-
 Copyright and License
 ---------------------
 Copyright (c) 2012 Dominik Raymann
